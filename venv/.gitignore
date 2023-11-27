@@ -1,0 +1,7 @@
+# created by virtualenv automatically
+etc/
+Lib/
+Scripts/
+Share/
+newappy
+pyvenv.cfg
