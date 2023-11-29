@@ -20,7 +20,8 @@ new_sheet = new_workbook.active
 
 columns_to_drop = ["summary", "mental_health_details", "weapons_obtained_legally",
                    "where_obtained", "weapon_type",	"weapon_details", "sources", "mental_health_sources",
-                   "sources_additional_age",	"latitude",	"longitude" ]
+                   "sources_additional_age",	"latitude",	"longitude", "Unnamed: 24",	"Unnamed: 25",
+                   "Unnamed: 26",	"Unnamed: 27" ]
 df = df.drop(columns=columns_to_drop)
 
 # Write header row to the new workbook because if not we lose it
@@ -28,6 +29,7 @@ new_sheet.append(df.columns.tolist())
 
 for index, row in df.iterrows():    #Going through rows in the modified DataFrame and append them to the new sheet
     new_sheet.append(row.tolist())
+
 
 new_workbook.save('modified_file.xlsx')
 
