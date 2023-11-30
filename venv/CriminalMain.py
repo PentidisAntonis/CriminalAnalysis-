@@ -38,7 +38,6 @@ modified_df = pd.read_excel('modified_file.xlsx', header=0)
 
 # Print the modified DataFrame
 print("Modified DataFrame: ", modified_df)
-
-
+print(df.columns.tolist())
 new_workbook.close()
 
