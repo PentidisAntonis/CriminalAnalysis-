@@ -1,7 +1,6 @@
 import pandas as pd
 
-xlxs_file_path = r'C:\Users\ahpen\PycharmProjects\pythonProject\venv\modified_file.xlsx'
-                        #Setting the working directory
+xlxs_file_path = r'venv\modified_file.xlsx' #Setting the working directory
 
 
 df=pd.read_excel(xlxs_file_path, header=0)
@@ -24,7 +23,8 @@ gender_mapping = {
     'female': 'female',
     'male & female': 'other',
     'f ("identifies as transgender" and "Audrey Hale is a biological '
-    'woman who, on a social media profile, used male pronouns,” according to Nashville Metro PD officials)': 'Other',
+    'woman who, on a social media profile, used male pronouns,” according to Nashville Metro PD officials)':
+        'Other',
 }
 mental_health_mapping = {
     'yes': 'Yes',
@@ -41,17 +41,12 @@ df['type'] = df['type'].str.lower()
 df['race'] = df['race'].str.lower()
 df['race'] = df['race'].str.lower().replace({'white ': 'white', 'unclear': 'other', '-': 'other'})
 df['location.1'] = df['location.1'].str.strip() # 'Other\n', '\nWorkplace '
-df['location.1'] = df['location.1'].str.lower().replace(
-    { 'Workplace': 'workplace'})
+df['location.1'] = df['location.1'].str.lower().replace({ 'Workplace': 'workplace'})
 df['prior_signs_mental_health_issues'] = \
     df['prior_signs_mental_health_issues'].str.lower().replace(mental_health_mapping)
 
-
-
-
 #change the age column to numeric type
 df['age_of_shooter'] = pd.to_numeric(df['age_of_shooter'], errors='coerce')
-
 
 numerical_columns =( 'fatalities', 'injured', 'total_victims', 'age_of_shooter')
 numerical_df = df[list(numerical_columns)]
