@@ -2,10 +2,12 @@ import pandas as pd
 
 xlxs_file_path = r'venv\modified_file.xlsx' #Setting the working directory
 
+def map_categorical_column(column, mapping_dict):
+    df[column] = df[column].str.lower().replace(mapping_dict)
 
 df=pd.read_excel(xlxs_file_path, header=0)
 
-#change the year column to categorical column
+#change the year column type to categorical 
 df['year'] = df['year'].astype(str)
 
 # List of categorical columns
@@ -36,9 +38,12 @@ mental_health_mapping = {
 
 
 # Standardize categorical columns
-df['gender'] = df['gender'].str.lower().map(gender_mapping)
+df['gender'] = df['gender'].apply(lambda x: gender_mapping.get(x, x))
+
+for column in categorical_columns:
+    map_categorical_column(column, {})
+
 df['type'] = df['type'].str.lower()
-df['race'] = df['race'].str.lower()
 df['race'] = df['race'].str.lower().replace({'white ': 'white', 'unclear': 'other', '-': 'other'})
 df['location.1'] = df['location.1'].str.strip() # 'Other\n', '\nWorkplace '
 df['location.1'] = df['location.1'].str.lower().replace({ 'Workplace': 'workplace'})
