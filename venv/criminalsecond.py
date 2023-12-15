@@ -3,16 +3,14 @@ import pandas as pd
 xlxs_file_path = r'C:\Users\ahpen\PycharmProjects\pythonProject\venv\Mother Jones ' \
                  r'- Mass Shootings Database, 1982 - 2019.xlsx' #Setting the working directory
 
-
 df=pd.read_excel(xlxs_file_path, header=0)
 
-#change the year column to categorical column
+#change the year column type to categorical 
 df['year'] = df['year'].astype(str)
 
 # List of categorical columns
 categorical_columns = ['location.1', 'prior_signs_mental_health_issues',
                        'race', 'gender','type', 'prior_signs_mental_health_issues']
-
 
 print(df.columns.tolist())
 
@@ -35,11 +33,15 @@ mental_health_mapping = {
     'unclear ': 'Unclear',
 }
 
+def map_categorical_column(column, mapping_dict):
+    df[column] = df[column].str.lower().replace(mapping_dict)
 
 # Standardize categorical columns
-df['gender'] = df['gender'].str.lower().map(gender_mapping)
-df['type'] = df['type'].str.lower()
-df['race'] = df['race'].str.lower()
+df['gender'] = df['gender'].apply(lambda x: gender_mapping.get(x, x))
+
+for column in categorical_columns:
+    map_categorical_column(column, {})
+
 df['race'] = df['race'].str.lower().replace({'white ': 'white', 'unclear': 'other', '-': 'other'})
 df['location.1'] = df['location.1'].str.strip() # 'Other\n', '\nWorkplace '
 df['location.1'] = df['location.1'].str.lower().replace({ 'Workplace': 'workplace'})
