@@ -57,13 +57,6 @@ numerical_df = df[list(numerical_columns)]
 summary= numerical_df.describe()
 category_counts = df[categorical_columns].apply(lambda col: pd.Series(col).value_counts())
 
-print("Summary of Columns:")
-print(summary)
-
-for column in categorical_columns:
-    category_counts = df[column].value_counts()
-    print(f"Count per category for '{column}':")
-    print(category_counts)
 
 while True:
     user_input = input("Please choose a column that you want to see statistics (type 'Exit' to exit): ")
@@ -81,6 +74,8 @@ while True:
             print(f"Median of {user_input}: {df[user_input].median()}")
         else:
             print("Invalid input for statistics choice.")
+    elif user_input in categorical_columns:
+        print(df[user_input].value_counts())
     else:
         print("Invalid input for column selection.")
 
