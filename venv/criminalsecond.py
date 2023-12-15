@@ -5,12 +5,10 @@ xlxs_file_path = r'C:\Users\ahpen\PycharmProjects\pythonProject\venv\Mother Jone
 
 df=pd.read_excel(xlxs_file_path, header=0)
 
-#change the year column type to categorical 
-df['year'] = df['year'].astype(str)
 
 # List of categorical columns
 categorical_columns = ['location.1', 'prior_signs_mental_health_issues',
-                       'race', 'gender','type', 'prior_signs_mental_health_issues']
+                       'race', 'gender','type']
 
 print(df.columns.tolist())
 
@@ -21,9 +19,8 @@ gender_mapping = {
     'f': 'female',
     'female': 'female',
     'male & female': 'other',
-    'f ("identifies as transgender" and "Audrey Hale is a biological '
-    'woman who, on a social media profile, used male pronouns,” according to Nashville Metro PD officials)':
-        'Other',
+    'f ("identifies as transgender" and "audrey hale is a biological woman who, on a social media profile, used male pronouns,” according to nashville metro pd officials)': 'other',
+    'f ("identifies as transgender" and "audrey hale is a biological woman who, on a social media profile, used male pronouns,” according to nashville metro pd officials)': 'other',
 }
 mental_health_mapping = {
     'yes': 'Yes',
@@ -36,11 +33,14 @@ mental_health_mapping = {
 def map_categorical_column(column, mapping_dict):
     df[column] = df[column].str.lower().replace(mapping_dict)
 
+def map_categorical_columns():
+    for column in categorical_columns:
+        df[column] = df[column].str.lower().replace(gender_mapping)
+
 # Standardize categorical columns
 df['gender'] = df['gender'].apply(lambda x: gender_mapping.get(x, x))
 
-for column in categorical_columns:
-    map_categorical_column(column, {})
+map_categorical_columns()
 
 df['race'] = df['race'].str.lower().replace({'white ': 'white', 'unclear': 'other', '-': 'other'})
 df['location.1'] = df['location.1'].str.strip() # 'Other\n', '\nWorkplace '
@@ -48,8 +48,9 @@ df['location.1'] = df['location.1'].str.lower().replace({ 'Workplace': 'workplac
 df['prior_signs_mental_health_issues'] = \
     df['prior_signs_mental_health_issues'].str.lower().replace(mental_health_mapping)
 
-#change the age column to numeric type
+#change the age and year columns to numeric type
 df['age_of_shooter'] = pd.to_numeric(df['age_of_shooter'], errors='coerce')
+df['year'] = df['year'].astype(str)
 
 numerical_columns =( 'fatalities', 'injured', 'total_victims', 'age_of_shooter')
 numerical_df = df[list(numerical_columns)]
