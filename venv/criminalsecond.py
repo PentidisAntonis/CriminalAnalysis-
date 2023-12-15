@@ -65,22 +65,24 @@ for column in categorical_columns:
     print(f"Count per category for '{column}':")
     print(category_counts)
 
+while True:
+    user_input = input("Please choose a column that you want to see statistics (type 'Exit' to exit): ")
+    if user_input.lower() == "exit":
+        break  # Exit the loop if the user enters "Exit"
 
-user_input = input("Please choose column that you want to see statistics: ")
-
-if user_input in numerical_columns:
-    statistics_user_input = input("Please choose what you want to learn, "
-                                  "either 1- All possible statistics, 2- Mean,3- Median: ")
-    if statistics_user_input.lower() == "all" or statistics_user_input.lower() == "1":
-        print(df[user_input].describe())
-    elif statistics_user_input.lower() == "2" or statistics_user_input.lower() == "mean":
-        print(f"Mean of {user_input}: {df[user_input].mean()}")
-    elif statistics_user_input.lower() == "3" or statistics_user_input.lower() == "median":
-        print(f"Median of {user_input}: {df[user_input].median()}")
+    if user_input in numerical_columns:
+        statistics_user_input = input("Please choose what you want to learn, "
+                                      "either 1- All possible statistics, 2- Mean,3- Median: ")
+        if statistics_user_input.lower() == "all" or statistics_user_input.lower() == "1":
+            print(df[user_input].describe())
+        elif statistics_user_input.lower() == "2" or statistics_user_input.lower() == "mean":
+            print(f"Mean of {user_input}: {df[user_input].mean()}")
+        elif statistics_user_input.lower() == "3" or statistics_user_input.lower() == "median":
+            print(f"Median of {user_input}: {df[user_input].median()}")
+        else:
+            print("Invalid input for statistics choice.")
     else:
-        print("Invalid input for statistics choice.")
-else:
-    print("Invalid input for column selection.")
+        print("Invalid input for column selection.")
 
 
 
