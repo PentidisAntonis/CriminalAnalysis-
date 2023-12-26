@@ -1,7 +1,7 @@
 import pandas as pd
 
-xlxs_file_path = r'C:\Users\ahpen\PycharmProjects\pythonProject\venv\Mother Jones ' \
-                 r'- Mass Shootings Database, 1982 - 2019.xlsx' #Setting the working directory
+xlxs_file_path = r'C:\Users\ahpen\PycharmProjects\pythonProject\venv\modified_file.xlsx'
+#Setting the working directory
 
 df=pd.read_excel(xlxs_file_path, header=0)
 
@@ -10,7 +10,7 @@ df=pd.read_excel(xlxs_file_path, header=0)
 categorical_columns = ['location.1', 'prior_signs_mental_health_issues',
                        'race', 'gender','type']
 
-print(df.columns.tolist())
+print(categorical_columns)
 
 #Transforming the categorical columns so that the values makes sense
 gender_mapping = {
@@ -57,28 +57,28 @@ numerical_df = df[list(numerical_columns)]
 
 summary= numerical_df.describe()
 category_counts = df[categorical_columns].apply(lambda col: pd.Series(col).value_counts())
-
+print(numerical_columns)
 
 while True:
-    user_input = input("Please choose a column that you want to see statistics (type 'Exit' to exit): ")
+    user_input = input("Please choose a column that you want to see statistics (type 'Exit' to exit): \n")
     if user_input.lower() == "exit":
         break  # Exit the loop if the user enters "Exit"
 
     if user_input in numerical_columns:
         statistics_user_input = input("Please choose what you want to learn, "
-                                      "either 1- All possible statistics, 2- Mean,3- Median: ")
+                                      "either 1- All possible statistics, 2- Mean,3- Median: \n")
         if statistics_user_input.lower() == "all" or statistics_user_input.lower() == "1":
             print(df[user_input].describe())
         elif statistics_user_input.lower() == "2" or statistics_user_input.lower() == "mean":
-            print(f"Mean of {user_input}: {df[user_input].mean()}")
+            print(f"Mean of {user_input}: {df[user_input].mean()}\n")
         elif statistics_user_input.lower() == "3" or statistics_user_input.lower() == "median":
-            print(f"Median of {user_input}: {df[user_input].median()}")
+            print(f"Median of {user_input}: {df[user_input].median()}\n")
         else:
-            print("Invalid input for statistics choice.")
+            print("Invalid input for statistics choice.\n")
     elif user_input in categorical_columns:
         print(df[user_input].value_counts())
     else:
-        print("Invalid input for column selection.")
+        print("Invalid input for column selection.\n")
 
 
 
