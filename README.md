@@ -23,7 +23,10 @@ Once Python is installed, you can install the pandas library using pip, the Pyth
 >pip install openpyxl
 
 
-### 4. CriminalMain.py
+### 4. Download from the venv file the Mother Jones - Mass Shootings Database, 1982 - 2019.xlsx
+
+
+### 5. CriminalMain.py
 
 The CriminalMain.py script is the initial component of this project. It performs the following tasks:
 
@@ -38,7 +41,7 @@ To run the CriminalMain.py script, navigate to the project directory and execute
 
 This script sets up the data for analysis in the subsequent criminalsecond.py script.
 
-### 5. criminalsecond.py
+### 6. criminalsecond.py
 
 The criminalsecond.py script continues the analysis by:
 
